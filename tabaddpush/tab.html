@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #main{
+            width: 600px;
+            height: 300px;
+            margin: 20px auto;
+            border: 1px solid #000000;
+        }
+        #main ul li{
+            list-style: none;
+        }
+        #main #tab{
+            width: 100%;
+        }
+        #main #tab li{
+            width: 200px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border: 1px solid #000000;
+            border-top: none;
+            border-left: none;
+            cursor: pointer;
+            float: left;
+            box-sizing: border-box;
+        }
+        #main #tab li:nth-last-child(1){
+           border-right: none;
+        }
+        
+        #main #tab li:hover{
+          background: gray;
+          color: white;
+        }
+        #main #menu{
+            width: 100%;
+            clear: both;
+        }
+        #main #menu li{
+            width: 100%;
+            height: 240px;
+            text-align: center;
+            float: left;
+        }
+        #main #menu li:nth-child(1){
+            background: orange;
+        }
+        #main #menu li:nth-child(2){
+            background: green;
+        }
+        #main #menu li:nth-child(3){
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main">
+        <ul id="tab">
+            <li v-for='(tab,index) in arr' v-on:click='tabindex = index'>{{tab}}</li>
+        </ul>
+        <ul id="menu">
+            <li v-for='(con,index) in content' v-show='tabindex == index'><h1>{{con}}</h1></li>
+        </ul>
+    </div>
+
+   <div id="student">
+       <ul>
+           <li v-for='item in arr'>姓名:{{item}}</li>
+       </ul>
+       <input type="text" v-model='username.name'>
+       <button v-on:click='add'>添加</button>
+   </div>
+    <script>
+        var vm = new Vue({
+            el:'#main',
+            data:{
+                tabindex:0,
+                arr:['tab1','tab2','tab3'],
+                content:['内容1','内容2','内容3']
+            }
+        })
+        
+        var stu = new Vue({
+            el:'#student',
+            methods:{
+                add(){
+                    this.arr.push(this.username.name)
+                    this.username={
+                        name:''
+                    }
+                }
+            },
+            data:{
+                arr:['张三','李四','王麻子','李梅','李娟'],
+                username:{
+                    name:''
+                }
+            }
+        })
+
+
+    </script>
+</body>
+</html>
